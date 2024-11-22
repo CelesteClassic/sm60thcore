@@ -9,6 +9,8 @@ __lua__
 -- sm60thcore by meep+anti
 -- evercore by many contributors
 
+allow_clip=false --allow spike clips
+
 function vector(x,y)
   return {x=x,y=y}
 end
@@ -107,7 +109,7 @@ end
 function spikes_at(x1,y1,x2,y2,xspd,yspd)
   for i=max(0,x1\8),min(lvl_w-1,x2/8) do
     for j=max(0,y1\8),min(lvl_h-1,y2/8) do
-      if ({[17]=yspd>-.3 and y2%8>=5,
+      if ({[17]=yspd>(allow_clip and 0 or -.3) and y2%8>=5,
            [27]=yspd<=0 and y1%8<=3,
            [43]=xspd<=0 and x1%8<=3,
            [59]=xspd>=0 and x2%8>=5})[tile_at(i,j)] then
